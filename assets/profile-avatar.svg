@@ -1,0 +1,27 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-labelledby="title desc">
+  <title id="title">Profile avatar</title>
+  <desc id="desc">Blue themed profile avatar illustration for Atiqah Faqihah.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#8bc5ff"/>
+      <stop offset="48%" stop-color="#2785ff"/>
+      <stop offset="100%" stop-color="#0a2552"/>
+    </linearGradient>
+    <linearGradient id="shirt" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1769e0"/>
+      <stop offset="100%" stop-color="#061733"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg)"/>
+  <circle cx="98" cy="92" r="92" fill="#ffffff" opacity="0.16"/>
+  <circle cx="506" cy="132" r="120" fill="#ffffff" opacity="0.1"/>
+  <circle cx="476" cy="484" r="156" fill="#061733" opacity="0.18"/>
+  <path d="M166 548c18-114 88-178 134-178s116 64 134 178H166z" fill="url(#shirt)"/>
+  <circle cx="300" cy="244" r="95" fill="#f1d0bd"/>
+  <path d="M190 265c2-104 62-166 132-166 76 0 128 58 128 146 0 44-17 76-36 101-2-50-19-86-50-108-38 38-99 50-174 27z" fill="#102033"/>
+  <path d="M218 248c32 10 69 8 112-7 35-12 63-28 84-48 24 34 32 78 23 126 25-24 42-70 34-119-12-76-75-132-154-132-88 0-156 67-156 155 0 52 22 95 57 125-12-36-11-70 0-100z" fill="#061733"/>
+  <circle cx="260" cy="251" r="8" fill="#102033"/>
+  <circle cx="339" cy="251" r="8" fill="#102033"/>
+  <path d="M271 303c18 17 42 17 60 0" fill="none" stroke="#a75b55" stroke-linecap="round" stroke-width="9"/>
+  <path d="M232 392c35 34 102 34 136 0 31 12 55 31 74 58H158c19-27 43-46 74-58z" fill="#ffffff" opacity="0.92"/>
+</svg>
