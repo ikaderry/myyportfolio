@@ -47,6 +47,7 @@ a {
 .navbar {
   align-items: center;
   display: flex;
+  gap: 18px;
   justify-content: space-between;
   margin: 0 auto;
   max-width: 1160px;
@@ -75,8 +76,9 @@ a {
 .nav-links {
   align-items: center;
   display: flex;
-  gap: 24px;
+  gap: 18px;
   list-style: none;
+  margin-left: auto;
 }
 
 .nav-links a {
@@ -91,6 +93,37 @@ a {
   color: var(--blue-600);
 }
 
+
+.header-social {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.header-social a {
+  align-items: center;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: inline-flex;
+  height: 38px;
+  justify-content: center;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  width: 38px;
+}
+
+.header-social a:hover {
+  border-color: var(--blue-500);
+  box-shadow: 0 10px 22px rgba(23, 105, 224, 0.16);
+  transform: translateY(-2px);
+}
+
+.header-social img {
+  display: block;
+  height: 19px;
+  object-fit: contain;
+  width: 19px;
+}
 .menu-toggle {
   background: transparent;
   border: 0;
@@ -395,6 +428,15 @@ h1 span {
   margin-bottom: 10px;
 }
 
+.hobby-card h3 a {
+  color: var(--blue-950);
+  transition: color 0.2s ease;
+}
+
+.hobby-card h3 a:hover {
+  color: var(--blue-600);
+}
+
 .project-content .tags {
   margin-top: 18px;
 }
@@ -460,19 +502,23 @@ h1 span {
   padding: 24px;
 }
 
-.hobby-card span {
+.hobby-icon {
   align-items: center;
   background: var(--blue-100);
   border: 1px solid #cce3ff;
   border-radius: 8px;
-  color: var(--blue-800);
   display: inline-flex;
-  font-size: 0.92rem;
-  font-weight: 800;
   height: 46px;
   justify-content: center;
   margin-bottom: 14px;
   width: 46px;
+}
+
+.hobby-icon img {
+  display: block;
+  height: 25px;
+  object-fit: contain;
+  width: 25px;
 }
 
 .contact-box {
@@ -527,16 +573,6 @@ h1 span {
   padding: 28px max(24px, calc((100vw - 1160px) / 2 + 24px));
 }
 
-.social-links {
-  display: flex;
-  gap: 16px;
-}
-
-.social-links a {
-  color: var(--white);
-  font-weight: 700;
-}
-
 .reveal {
   opacity: 0;
   transform: translateY(18px);
@@ -561,10 +597,15 @@ h1 span {
     display: none;
     flex-direction: column;
     left: 24px;
+    margin-left: 0;
     padding: 20px;
     position: absolute;
     right: 24px;
     top: 74px;
+  }
+
+  .header-social {
+    margin-left: auto;
   }
 
   .nav-links.open {
@@ -616,6 +657,24 @@ h1 span {
     flex-direction: column;
   }
 
+  .brand span:last-child {
+    display: none;
+  }
+
+  .header-social {
+    gap: 4px;
+  }
+
+  .header-social a {
+    height: 30px;
+    width: 30px;
+  }
+
+  .header-social img {
+    height: 16px;
+    width: 16px;
+  }
+
   .project-grid,
   .hobby-grid {
     grid-template-columns: 1fr;
@@ -629,5 +688,9 @@ h1 span {
     gap: 16px;
   }
 }
+
+
+
+
 
 
