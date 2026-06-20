@@ -5,6 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Portfolio</title>
   <link rel="stylesheet" href="styles.css">
+  <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+    (function(){
+        emailjs.init({
+          publicKey: "p0RY33ng6ijNztFxt",
+        });
+   })();
+</script>
 </head>
 <body>
   <header class="site-header">
@@ -212,44 +222,67 @@
       <div class="diary-spread reveal">
         <div class="diary-collage" aria-label="University life image collage">
           <figure class="collage-frame frame-large">
-            <img src="assets/WIN_20250521_08_28_58_Pro.jpg" alt="University memory">
-            <figcaption>campus days</figcaption>
+            <img src="assets/IMG-20250731-WA0004.jpg" alt="University memory">
+            <figcaption>healing</figcaption>
           </figure>
           <figure class="collage-frame frame-small frame-tilt-left">
-            <img src="assets/fypproject.png" alt="Final year project memory">
-            <figcaption>final year project</figcaption>
+            <img src="assets/_DSC7614.JPG" alt="Final year project memory">
+            <figcaption>RISE 2025 at UTHM</figcaption>
           </figure>
           <figure class="collage-frame frame-small frame-tilt-right">
-            <img src="assets/airplanedashboard.png" alt="Dashboard project memory">
-            <figcaption>late-night builds</figcaption>
+            <img src="assets/photo_2026-06-20_17-08-02.jpg" alt="Dashboard project memory">
+            <figcaption>it's a wrap! ecorun</figcaption>
           </figure>
-          <figure class="collage-frame frame-wide">
-            <img src="assets/marriagebirthdashboard.png" alt="University work memory">
-            <figcaption>learning by doing</figcaption>
+           <figure class="collage-frame frame-large">
+            <img src="assets/photo_2026-06-20_17-08-17.jpg" alt="University memory">
+            <figcaption>FYP with supervisor :3</figcaption>
+          </figure>
+          <figure class="collage-frame frame-small frame-tilt-left">
+            <img src="assets/photo_2026-06-20_17-08-19.jpg" alt="University work memory">
+            <figcaption>dean list :) </figcaption>
+          </figure>
+          <figure class="collage-frame frame-small frame-tilt-left">
+            <img src="assets/photo_2026-06-20_17-08-16.jpg" alt="University work memory">
+            <figcaption>Club AGM </figcaption>
           </figure>
         </div>
 
-        <div class="diary-notes">
-          <article class="diary-entry">
+        <div class="campus-notes">
+          <article class="diary-entry campus-note" tabindex="0" role="button" data-title="Active in Club" data-images="assets\photo_2026-06-20_17-08-15.jpg, assets\photo_2026-06-20_17-08-02.jpg,assets\IMG-20240517-WA0017.jpg,assets\IMG_20250226_155930.jpg,assets\DSC_0035.JPG,assets\_DSC7614.JPG,assets\_DSC3343.JPG,assets\IMG_20240630_174425_794.jpg
+" data-caption="Being an exco in a student organization taught me how to handle programs, support a team, and stay calm when plans change.">
             <span>01</span>
             <h3>Active in Club</h3>
             <p>Being an exco in a student organization taught me how to handle programs, support a team, and stay calm when plans change.</p>
           </article>
 
-          <article class="diary-entry">
+          <article class="diary-entry campus-note" tabindex="0" role="button" data-title="Events and Short Vacations" data-images="assets\photo_2025-11-12_14-00-43.jpg, assets\photo_2025-11-12_14-00-25.jpg,assets\photo_2026-06-20_17-07-48.jpg,assets\photo_2025-02-01_00-39-02.jpg,assets\IMG_2443.jpg,assets\IMG_20250625_192531.jpg,assets\IMG-20240506-WA0018.jpg, assets\IMG-20250731-WA0004.jpg,assets\photo_2026-06-20_17-21-51.jpg,assets\photo_2026-06-20_17-08-04.jpg,assets\photo_2026-06-20_17-07-56.jpg
+" data-caption="University life gave me space to join events, take short breaks with friends, and collect stories outside the classroom.">
             <span>02</span>
             <h3>Events and Short Vacations</h3>
             <p>University life gave me space to join events, take short breaks with friends, and collect stories outside the classroom.</p>
           </article>
 
-          <article class="diary-entry">
+          <article class="diary-entry campus-note" tabindex="0" role="button" data-title="Achievements" data-images="assets\photo_2026-06-20_17-08-19.jpg, assets\photo_2026-06-20_17-08-22.jpg" data-caption="Receiving Dean's List recognition reminded me that consistency matters, even during the busiest semesters.">
             <span>03</span>
-            <h3>My Achievements</h3>
+            <h3>Achievements</h3>
             <p>Receiving Dean's List recognition reminded me that consistency matters, even during the busiest semesters.</p>
           </article>
         </div>
       </div>
     </section>
+
+      <div class="campus-modal" aria-hidden="true">
+        <div class="campus-modal-card" role="dialog" aria-modal="true" aria-labelledby="campus-modal-title">
+          <button class="campus-modal-close" type="button" aria-label="Close campus note">Close</button>
+          <div class="campus-modal-copy">
+            <p class="eyebrow">Campus Notes</p>
+            <h3 id="campus-modal-title">Campus Note</h3>
+            <p class="campus-modal-caption"></p>
+          </div>
+          <div class="campus-modal-gallery" aria-label="Campus note image gallery"></div>
+        </div>
+      </div>
+
     <section id="hobbies" class="section hobbies">
       <div class="section-heading reveal">
         <p class="eyebrow">Hobbies</p>
@@ -296,15 +329,15 @@
         <form class="contact-form">
           <label>
             Name
-            <input type="text" name="name" placeholder="Your name" required>
+            <input id="name" type="text" name="name" placeholder="Your name" required>
           </label>
           <label>
             Email
-            <input type="email" name="email" placeholder="your@email.com" required>
+            <input id="email" type="email" name="email" placeholder="your@email.com" required>
           </label>
           <label>
             Message
-            <textarea name="message" rows="5" placeholder="Write your message here..." required></textarea>
+            <textarea id="message" name="message" rows="5" placeholder="Write your message here..." required></textarea>
           </label>
           <button class="button primary" type="submit">Send Message</button>
           <p class="form-note" aria-live="polite"></p>
@@ -316,10 +349,17 @@
   <footer class="footer">
     <p>&copy; 2026 ikaderry. All rights reserved.</p>
   </footer>
-
-  <script src="script.js"></script>
+ <script src="script.js"></script>
+  
 </body>
 </html>
+
+
+
+
+
+
+
 
 
 
