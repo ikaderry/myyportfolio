@@ -9,6 +9,7 @@ const contactForm = document.querySelector(".contact-form");
 const formNote = document.querySelector(".form-note");
 const wishForm = document.querySelector(".wish-form");
 const wishFormNote = document.querySelector(".wish-form-note");
+const wishBoard = document.querySelector(".wish-board");
 
 menuToggle.addEventListener("click", () => {
   const isOpen = navLinks.classList.toggle("open");
@@ -82,6 +83,39 @@ contactForm?.addEventListener("submit", async (event) => {
   }
 });
 
+const renderWishCards = (wishes) => {
+  if (!wishBoard) {
+    return;
+  }
+
+  wishBoard.querySelectorAll(".wish-frame").forEach((card) => card.remove());
+
+  const wishesList = Object.entries(wishes || {})
+    .map(([id, wish]) => ({ id, ...wish }))
+    .sort((a, b) => (a.createdAt || "").localeCompare(b.createdAt || ""));
+
+  if (!wishesList.length) {
+    wishBoard.innerHTML = '<p class="wish-empty-state">No wishes yet. Be the first to share one.</p>';
+    return;
+  }
+
+  wishBoard.innerHTML = "";
+
+  wishesList.forEach((wish) => {
+    const colors = ["#fff8b0", "#dff7da", "#ffd9e5", "#d9ecff", "#f7d7ff", "#ffe0b2"];
+    const card = document.createElement("figure");
+    card.className = "wish-frame wish-frame-small";
+    card.innerHTML = `
+      <article class="wish-card" style="background:${colors[Math.floor(Math.random() * colors.length)]};">
+        <h3>${wish.message}</h3>
+        <p></p>
+        <span>— ${wish.name || "friend"}</span>
+      </article>
+    `;
+    wishBoard.appendChild(card);
+  });
+};
+
 wishForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -103,22 +137,6 @@ wishForm?.addEventListener("submit", async (event) => {
     });
 
     wishFormNote.textContent = `Thanks, ${name}! Your wish has been saved.`;
-
-    const wishBoard = document.querySelector(".wish-board");
-    if (wishBoard) {
-      const colors = ["#fff8b0", "#dff7da", "#ffd9e5", "#d9ecff", "#f7d7ff", "#ffe0b2"];
-      const card = document.createElement("figure");
-      card.className = "wish-frame wish-frame-small";
-      card.innerHTML = `
-        <article class="wish-card" style="background:${colors[Math.floor(Math.random() * colors.length)]};">
-          <h3>${message}</h3>
-          <p></p>
-          <span>— ${name}</span>
-        </article>
-      `;
-      wishBoard.appendChild(card);
-    }
-
     wishForm.reset();
   } catch (error) {
     console.error("Firebase save error:", error);
@@ -194,3 +212,7 @@ document.addEventListener("keydown", (event) => {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
+firebase.database().ref("wishes").on("value", (snapshot) => {
+  renderWishCards(snapshot.val());
+});
