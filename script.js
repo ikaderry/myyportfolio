@@ -112,7 +112,7 @@ wishForm?.addEventListener("submit", async (event) => {
       card.innerHTML = `
         <article class="wish-card" style="background:${colors[Math.floor(Math.random() * colors.length)]};">
           <h3>${message}</h3>
-          <p>“A new wish has just been shared.”</p>
+          <p></p>
           <span>— ${name}</span>
         </article>
       `;
