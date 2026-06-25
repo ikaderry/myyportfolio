@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Portfolio</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images nanami ryusui.jpeg">
   <link rel="stylesheet" href="styles.css">
   <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
@@ -20,7 +21,9 @@
   <header class="site-header">
     <nav class="navbar" aria-label="Main navigation">
       <a class="brand" href="#home">
-        <span class="brand-mark">P</span>
+        <span class="brand-mark" aria-hidden="true">
+          <img src="assets/images nanami ryusui.jpeg" alt="">
+        </span>
         <span>Portfolio</span>
       </a>
 
@@ -35,6 +38,7 @@
         <li><a href="#projects">Projects</a></li>
         <li><a href="#university">University Life</a></li>
         <li><a href="#hobbies">Hobbies</a></li>
+        <li><a href="#wishes">Wishes</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
 
@@ -78,8 +82,8 @@
             <img src="assets/WIN_20250521_08_28_58_Pro.jpg" alt="Atiqah Faqihah profile photo">
           </div>
           <div>
-            <h2>Atiqah Faqihah</h2>
-            <p>Information Technology Student</p>
+            <h2>Peace yo!</h2>
+            <p>I'm an IT student, will graduate soon</p>
           </div>
           <div class="status-row">
             <span></span>
@@ -222,15 +226,15 @@
       <div class="diary-spread reveal">
         <div class="diary-collage" aria-label="University life image collage">
           <figure class="collage-frame frame-large">
-            <img src="assets/IMG-20250731-WA0004.jpg" alt="University memory">
+            <img src="assets/IMG-20250731-WA0004.jpg" alt="Vacay memory">
             <figcaption>healing</figcaption>
           </figure>
           <figure class="collage-frame frame-small frame-tilt-left">
-            <img src="assets/_DSC7614.JPG" alt="Final year project memory">
+            <img src="assets\_DSC7614.JPG" alt="Event memory">
             <figcaption>RISE 2025 at UTHM</figcaption>
           </figure>
           <figure class="collage-frame frame-small frame-tilt-right">
-            <img src="assets/photo_2026-06-20_17-08-02.jpg" alt="Dashboard project memory">
+            <img src="assets/photo_2026-06-20_17-08-02.jpg" alt="Club memory">
             <figcaption>it's a wrap! ecorun</figcaption>
           </figure>
            <figure class="collage-frame frame-large">
@@ -262,7 +266,7 @@
             <p>University life gave me space to join events, take short breaks with friends, and collect stories outside the classroom.</p>
           </article>
 
-          <article class="diary-entry campus-note" tabindex="0" role="button" data-title="Achievements" data-images="assets\photo_2026-06-20_17-08-19.jpg, assets\photo_2026-06-20_17-08-22.jpg" data-caption="Receiving Dean's List recognition reminded me that consistency matters, even during the busiest semesters.">
+          <article class="diary-entry campus-note" tabindex="0" role="button" data-title="Awards" data-images="assets\photo_2026-06-20_17-08-19.jpg, assets\photo_2026-06-20_17-08-22.jpg" data-caption="Receiving Dean's List recognition reminded me that consistency matters, even during the busiest semesters.">
             <span>03</span>
             <h3>Achievements</h3>
             <p>Receiving Dean's List recognition reminded me that consistency matters, even during the busiest semesters.</p>
@@ -316,6 +320,35 @@
       </div>
     </section>
 
+    <section id="wishes" class="section wishes">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Wishes</p>
+        <h2>Little notes of hope</h2>
+        <p>
+          A space for kind words, positive messages, and wishes that brighten the day.
+        </p>
+      </div>
+
+      <div class="wishes-layout">
+        <form class="wish-form reveal">
+          <label>
+            Name
+            <input id="wish-name" type="text" name="wishName" placeholder="Your name" required>
+          </label>
+          <label>
+            Wish
+            <textarea id="wish-message" name="wishMessage" rows="5" placeholder="Write your wish here..." required></textarea>
+          </label>
+          <button class="button primary" type="submit">Send Wish</button>
+          <p class="wish-form-note" aria-live="polite"></p>
+        </form>
+
+        <div class="wish-board reveal" aria-label="Wish cards display">
+          <p class="wish-empty-state">No wishes yet. Be the first to share one.</p>
+        </div>
+      </div>
+    </section>
+
     <section id="contact" class="section contact">
       <div class="contact-box reveal">
         <div>
@@ -324,6 +357,9 @@
           <p>
             Feel free to reach out for collaboration, projects, or just a friendly connection!
           </p>
+          <p>Email : <a href="mailto:your@email.com">atqhfqh@gmail.com</a></p>
+          <p>Phone : <a href="tel:+60123456789">+60 18-220 2987</a></p>
+          <p>Adress : Klang, Selangor</p>
         </div>
 
         <form class="contact-form">
@@ -349,7 +385,9 @@
   <footer class="footer">
     <p>&copy; 2026 ikaderry. All rights reserved.</p>
   </footer>
- <script src="script.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script src="script.js"></script>
   
 </body>
 </html>
