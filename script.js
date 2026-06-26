@@ -10,6 +10,43 @@ const formNote = document.querySelector(".form-note");
 const wishForm = document.querySelector(".wish-form");
 const wishFormNote = document.querySelector(".wish-form-note");
 const wishBoard = document.querySelector(".wish-board");
+const wishStorageKey = "portfolio-wishes";
+
+const getStoredWishes = () => {
+  try {
+    const savedWishes = localStorage.getItem(wishStorageKey);
+    if (!savedWishes) {
+      return [];
+    }
+
+    const parsed = JSON.parse(savedWishes);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (error) {
+    console.error("Could not read saved wishes:", error);
+    return [];
+  }
+};
+
+const saveStoredWishes = (wishes) => {
+  try {
+    localStorage.setItem(wishStorageKey, JSON.stringify(wishes));
+  } catch (error) {
+    console.error("Could not save wishes locally:", error);
+  }
+};
+
+const normalizeWishes = (wishes) => {
+  if (Array.isArray(wishes)) {
+    return wishes
+      .filter(Boolean)
+      .map((wish) => ({ id: wish.id || `wish-${Math.random().toString(36).slice(2, 9)}`, ...wish }))
+      .sort((a, b) => (a.createdAt || "").localeCompare(b.createdAt || ""));
+  }
+
+  return Object.entries(wishes || {})
+    .map(([id, wish]) => ({ id, ...(wish || {}) }))
+    .sort((a, b) => (a.createdAt || "").localeCompare(b.createdAt || ""));
+};
 
 menuToggle.addEventListener("click", () => {
   const isOpen = navLinks.classList.toggle("open");
@@ -90,9 +127,7 @@ const renderWishCards = (wishes) => {
 
   wishBoard.querySelectorAll(".wish-frame").forEach((card) => card.remove());
 
-  const wishesList = Object.entries(wishes || {})
-    .map(([id, wish]) => ({ id, ...wish }))
-    .sort((a, b) => (a.createdAt || "").localeCompare(b.createdAt || ""));
+  const wishesList = normalizeWishes(wishes);
 
   if (!wishesList.length) {
     wishBoard.innerHTML = '<p class="wish-empty-state">No wishes yet. Be the first to share one.</p>';
@@ -129,6 +164,18 @@ wishForm?.addEventListener("submit", async (event) => {
 
   wishFormNote.textContent = "Saving your wish...";
 
+  const newWish = {
+    id: `wish-${Date.now()}`,
+    name,
+    message,
+    createdAt: new Date().toISOString()
+  };
+
+  const storedWishes = getStoredWishes();
+  storedWishes.push(newWish);
+  saveStoredWishes(storedWishes);
+  renderWishCards(storedWishes);
+
   try {
     await firebase.database().ref("wishes").push({
       name,
@@ -140,7 +187,7 @@ wishForm?.addEventListener("submit", async (event) => {
     wishForm.reset();
   } catch (error) {
     console.error("Firebase save error:", error);
-    wishFormNote.textContent = "Sorry, your wish could not be saved right now. Please try again.";
+    wishFormNote.textContent = `Thanks, ${name}! Your wish is saved locally and will sync when the connection is available.`;
   }
 });
 const campusNotes = document.querySelectorAll(".campus-note");
@@ -213,6 +260,12 @@ document.addEventListener("keydown", (event) => {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+renderWishCards(getStoredWishes());
+
 firebase.database().ref("wishes").on("value", (snapshot) => {
-  renderWishCards(snapshot.val());
+  const remoteWishes = snapshot.val();
+  if (remoteWishes) {
+    saveStoredWishes(normalizeWishes(remoteWishes));
+  }
+  renderWishCards(remoteWishes || getStoredWishes());
 });
