@@ -35,6 +35,8 @@ const saveStoredWishes = (wishes) => {
   }
 };
 
+let currentRemoteWishes = [];
+
 const normalizeWishes = (wishes) => {
   if (Array.isArray(wishes)) {
     return wishes
@@ -164,18 +166,6 @@ wishForm?.addEventListener("submit", async (event) => {
 
   wishFormNote.textContent = "Saving your wish...";
 
-  const newWish = {
-    id: `wish-${Date.now()}`,
-    name,
-    message,
-    createdAt: new Date().toISOString()
-  };
-
-  const storedWishes = getStoredWishes();
-  storedWishes.push(newWish);
-  saveStoredWishes(storedWishes);
-  renderWishCards(storedWishes);
-
   try {
     await firebase.database().ref("wishes").push({
       name,
@@ -187,7 +177,7 @@ wishForm?.addEventListener("submit", async (event) => {
     wishForm.reset();
   } catch (error) {
     console.error("Firebase save error:", error);
-    wishFormNote.textContent = `Thanks, ${name}! Your wish is saved locally and will sync when the connection is available.`;
+    wishFormNote.textContent = `Error: Could not save wish. Please check your connection and try again.`;
   }
 });
 const campusNotes = document.querySelectorAll(".campus-note");
@@ -246,26 +236,30 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
- const firebaseConfig = {
-    apiKey: "AIzaSyCJEjwoPBq5hGF-2CmoMmRpCsY-BbeXgx8",
-    authDomain: "portfoliotext-b5f62.firebaseapp.com",
-    databaseURL: "https://portfoliotext-b5f62-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "portfoliotext-b5f62",
-    storageBucket: "portfoliotext-b5f62.firebasestorage.app",
-    messagingSenderId: "864055035444",
-    appId: "1:864055035444:web:9b5116fb6369e6c0186c61",
-    measurementId: "G-JSR83WMD76"
-  };
-
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-renderWishCards(getStoredWishes());
+// Initial render with empty state
+renderWishCards([]);
 
+// Set up real-time listener for wishes
 firebase.database().ref("wishes").on("value", (snapshot) => {
   const remoteWishes = snapshot.val();
+  
   if (remoteWishes) {
-    saveStoredWishes(normalizeWishes(remoteWishes));
+    // Convert Firebase object format to array format
+    currentRemoteWishes = normalizeWishes(remoteWishes);
+    // Save to localStorage as backup
+    saveStoredWishes(currentRemoteWishes);
+  } else {
+    currentRemoteWishes = [];
+    saveStoredWishes([]);
   }
-  renderWishCards(remoteWishes || getStoredWishes());
+  
+  // Always render the remote wishes (source of truth)
+  renderWishCards(currentRemoteWishes);
+}, (error) => {
+  console.error("Firebase listener error:", error);
+  // Fallback to showing stored wishes if listener fails
+  renderWishCards(getStoredWishes());
 });
